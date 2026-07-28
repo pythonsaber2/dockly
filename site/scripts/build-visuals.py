@@ -30,6 +30,10 @@ def font(size, bold=False, mono=False):
     return ImageFont.truetype(path, size)
 
 
+def save_visual(image, name):
+    image.save(OUT / f"{name}.webp", "WEBP", quality=86, method=6)
+
+
 def rounded_image(img, radius):
     mask = Image.new("L", img.size, 0)
     ImageDraw.Draw(mask).rounded_rectangle((0, 0, *img.size), radius=radius, fill=255)
@@ -89,7 +93,7 @@ def save_pipeline():
         d.text((72, 52), value, font=font(15, mono=True), fill=MUTED)
         shadowed_paste(c, im, (930, y), blur=18, offset=(0, 14), alpha=135)
         y += 130
-    c.save(OUT / "feat-deploy.png", optimize=True)
+    save_visual(c, "feat-deploy")
 
 
 def save_health():
@@ -98,7 +102,7 @@ def save_health():
     shadowed_paste(c, checks, (75, 82), blur=26, offset=(0, 24), alpha=165)
     badge = card((295, 132), "Monitor", [("Uptime", "99.99%", AQUA)], BLUE)
     shadowed_paste(c, badge, (1010, 760), blur=22, offset=(0, 18), alpha=140)
-    c.save(OUT / "feat-health.png", optimize=True)
+    save_visual(c, "feat-health")
 
 
 def save_rollback():
@@ -119,7 +123,7 @@ def save_rollback():
     bd.text((49,20), "Roll back release", font=font(18, True), fill=(12,40,35,255))
     timeline.alpha_composite(btn, (180, 287))
     shadowed_paste(c, timeline, (870, 110), blur=30, offset=(0, 25), alpha=170)
-    c.save(OUT / "feat-rollback.png", optimize=True)
+    save_visual(c, "feat-rollback")
 
 
 def save_api():
@@ -136,10 +140,10 @@ def save_api():
     shadowed_paste(c, term, (65, 90), blur=30, offset=(0, 25), alpha=175)
     hook = card((350, 190), "Webhook", [("Trigger", "push", BLUE), ("Response", "202", AQUA)], ORANGE, "X-Dockly-Token: ••••••")
     shadowed_paste(c, hook, (980, 715), blur=24, offset=(0, 20), alpha=145)
-    c.save(OUT / "feat-api.png", optimize=True)
+    save_visual(c, "feat-api")
 
 
 if __name__ == "__main__":
     save_pipeline(); save_health(); save_rollback(); save_api()
-    for p in sorted(OUT.glob("feat-*.png")):
+    for p in sorted(OUT.glob("feat-*.webp")):
         print(p.relative_to(ROOT), p.stat().st_size)

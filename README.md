@@ -57,7 +57,7 @@ DOCKLY_DATA_DIR="$PWD/.dockly" ./bin/dockly
 
 ## Project website
 
-The standalone Dockly website is currently available at [http://103.73.65.155:5070](http://103.73.65.155:5070). No domain or TLS endpoint has been assigned yet.
+The standalone Dockly website is available at [https://usedockly.com](https://usedockly.com). The `www` hostname redirects to the canonical apex domain.
 
 Run the website locally with:
 

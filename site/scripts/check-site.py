@@ -48,6 +48,12 @@ def main() -> int:
     parser = SiteParser()
     source = INDEX.read_text(encoding="utf-8")
     parser.feed(source)
+    if '<link rel="canonical" href="https://usedockly.com/">' not in source:
+        parser.errors.append("canonical URL must be https://usedockly.com/")
+    if "fonts.googleapis.com" in source or "fonts.gstatic.com" in source:
+        parser.errors.append("production HTML must use the self-hosted font")
+    if 'src="assets/github-mark-white.svg' not in source:
+        parser.errors.append("hero CTA must use the self-hosted GitHub mark")
     if parser.h1_count != 1:
         parser.errors.append(f"expected one h1, found {parser.h1_count}")
     for asset in sorted(parser.local_assets):

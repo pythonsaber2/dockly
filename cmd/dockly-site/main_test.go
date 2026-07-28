@@ -47,6 +47,19 @@ func TestSecurityDoesNotUpgradeAssetsOnHTTP(t *testing.T) {
 	}
 }
 
+func TestSecurityPolicyHasNoThirdPartyOrigins(t *testing.T) {
+	request := httptest.NewRequest(http.MethodGet, "https://usedockly.com/", nil)
+	response := httptest.NewRecorder()
+	security(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusNoContent)
+	})).ServeHTTP(response, request)
+
+	policy := response.Header().Get("Content-Security-Policy")
+	if strings.Contains(policy, "https://") {
+		t.Fatalf("self-hosted site policy contains a third-party origin: %q", policy)
+	}
+}
+
 func TestSiteHandlerCompressesTextAssets(t *testing.T) {
 	root := t.TempDir()
 	if err := os.WriteFile(filepath.Join(root, "site.js"), []byte("console.log('dockly')"), 0o644); err != nil {

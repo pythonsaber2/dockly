@@ -53,4 +53,6 @@ A hardened systemd template is available at [`deploy/dockly-site.service`](../de
     └── site/
 ```
 
-The marketing server does not terminate TLS. Put it behind an HTTPS reverse proxy when a domain is assigned.
+Production uses an isolated nginx virtual host for `usedockly.com` and `www.usedockly.com`. Nginx proxies HTML and ancillary routes to the Go server on `127.0.0.1:5070`, serves versioned static assets directly, and provides HTTP/2 TLS, long-lived caching, Brotli/gzip compression, and security headers. Port `5070` is intentionally unavailable from the public network. The committed template is [`deploy/usedockly.com.nginx`](../deploy/usedockly.com.nginx).
+
+The Let's Encrypt certificate covers both hostnames. Install [`deploy/certbot-deploy-hook.sh`](../deploy/certbot-deploy-hook.sh) under `/etc/letsencrypt/renewal-hooks/deploy/` so successful renewals validate and reload nginx automatically.
