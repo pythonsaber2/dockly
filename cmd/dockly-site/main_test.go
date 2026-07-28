@@ -34,6 +34,19 @@ func TestSiteHandlerServesIndexWithSecurityHeaders(t *testing.T) {
 	}
 }
 
+func TestSecurityDoesNotUpgradeAssetsOnHTTP(t *testing.T) {
+	request := httptest.NewRequest(http.MethodGet, "http://dockly.test/", nil)
+	response := httptest.NewRecorder()
+	security(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusNoContent)
+	})).ServeHTTP(response, request)
+
+	policy := response.Header().Get("Content-Security-Policy")
+	if strings.Contains(policy, "upgrade-insecure-requests") {
+		t.Fatalf("HTTP policy upgrades same-origin assets to unavailable HTTPS: %q", policy)
+	}
+}
+
 func TestSiteHandlerCompressesTextAssets(t *testing.T) {
 	root := t.TempDir()
 	if err := os.WriteFile(filepath.Join(root, "site.js"), []byte("console.log('dockly')"), 0o644); err != nil {
