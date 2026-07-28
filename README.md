@@ -55,6 +55,18 @@ make build
 DOCKLY_DATA_DIR="$PWD/.dockly" ./bin/dockly
 ```
 
+## Project website
+
+The standalone Dockly website is currently available at [http://103.73.65.155:5070](http://103.73.65.155:5070). No domain or TLS endpoint has been assigned yet.
+
+Run the website locally with:
+
+```bash
+make site-run
+```
+
+The marketing site is separate from Dockly's authenticated embedded dashboard. See [`docs/WEBSITE.md`](docs/WEBSITE.md) for its source layout, visual-asset pipeline, production server, and systemd deployment.
+
 ## Configuration
 
 | Variable | Default | Purpose |
@@ -133,6 +145,7 @@ Please report vulnerabilities privately as described in [`SECURITY.md`](SECURITY
 ```bash
 make test
 make build
+make site-build
 make check
 ```
 

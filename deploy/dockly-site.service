@@ -1,0 +1,33 @@
+[Unit]
+Description=Dockly public website
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=dockly-site
+Group=dockly-site
+WorkingDirectory=/opt/dockly-site/current
+ExecStart=/opt/dockly-site/current/dockly-site --listen 0.0.0.0:5070 --root /opt/dockly-site/current/site
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+RestrictNamespaces=true
+SystemCallArchitectures=native
+RestrictAddressFamilies=AF_INET AF_INET6
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+/* Dockly-specific identity and real product visual treatment layered over the authorized source design. */
+.dockly-mark{display:inline-flex!important;align-items:flex-end!important;justify-content:center!important;gap:3px!important;width:22px!important;height:23px!important;background:none!important;border-radius:0!important;box-shadow:none!important;transform:none!important}
+.dockly-mark::before,.dockly-mark::after{display:none!important}
+.dockly-mark i{display:block;width:5px;border-radius:3px;background:#62e6c6;box-shadow:0 0 18px rgba(98,230,198,.22)}
+.dockly-mark i:nth-child(1){height:13px}.dockly-mark i:nth-child(2){height:21px}.dockly-mark i:nth-child(3){height:16px;background:#ffb067}
+.hero-logos{display:flex!important;position:relative!important;align-items:center;justify-content:center;gap:10px;margin-bottom:16px}.dockly-chip{position:relative;inset:auto!important;display:inline-flex!important;align-items:center;justify-content:center;width:44px!important;height:44px!important;padding:8px!important;border:1px solid rgba(255,255,255,.12);border-radius:13px!important;background:rgba(15,20,29,.72);box-shadow:0 12px 30px rgba(0,0,0,.24);transform:none!important;animation:none!important}.dockly-chip svg{width:25px;height:25px;fill:#ff9368!important}.dockly-chip.docker-chip svg{fill:#58a6ff!important}.hero-plus{font-size:1rem;font-weight:800;color:var(--mut)}
+.github-ic{width:18px;height:18px;fill:currentColor;flex:none}.hero .btn-os{gap:10px}
+.dockly-device{background:#070d16}.dockly-screen{padding:0!important;overflow:hidden;background:#0d1828!important;display:block!important}.dockly-screen>img{display:block;width:100%;height:100%;object-fit:cover;object-position:top left;pointer-events:none;-webkit-user-drag:none}
+.hero-device{max-width:1200px}.device-top{background:#161f2c}.dev-title{text-transform:lowercase;letter-spacing:.03em}
+.feat-media{isolation:isolate}.feat-media img{border-radius:0!important;filter:drop-shadow(0 30px 60px rgba(0,0,0,.36))!important;-webkit-mask-image:none!important;mask-image:none!important;transform:none!important}
+[data-theme="light"] .feat-media img{filter:drop-shadow(0 28px 52px rgba(52,72,103,.18))!important}
+[data-theme="light"] .dockly-screen{background:#0d1828!important}
+.pcard-price{gap:12px;align-items:baseline}.pcard-price .pcard-per{margin:0}
+.price-trust span{white-space:normal}.foot-led{white-space:nowrap}
+@media (min-width:901px){.feat-media img{width:114%!important;margin-left:-7%}.feat:nth-child(even) .feat-media img{margin-left:-7%}}
+@media (max-width:900px){.dockly-chip{display:inline-flex!important}.hero-device{padding-inline:12px}.feat-media img{width:108%;margin-left:-4%}.nav-menu{max-height:calc(100vh - 72px);overflow:auto}}
+@media (max-width:640px){.hero-h1 br{display:none}.hero-h1{max-width:12ch;margin-inline:auto}.hero-sub{max-width:32ch}.hero-note{padding-inline:20px}.dockly-screen>img{min-height:210px;object-fit:cover}.foot-led{white-space:normal}}
+@media (prefers-reduced-motion:reduce){.dockly-mark i{box-shadow:none}}
