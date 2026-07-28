@@ -1,0 +1,45 @@
+name: Bug report
+description: Report a reproducible Dockly problem
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include passwords, tokens, environment values, private URLs, or sensitive logs.
+  - type: input
+    id: version
+    attributes:
+      label: Dockly version
+      placeholder: release tag or commit
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: Installation
+      options: [Docker Compose, Docker image, Go binary, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Include expected behavior and the smallest safe reproduction.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues.
+          required: true
+        - label: I removed all secrets and private data.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true

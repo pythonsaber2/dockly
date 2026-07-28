@@ -1,0 +1,9 @@
+.git
+.github
+.dockly
+bin
+.env
+*.log
+Dockerfile*
+compose*.yaml
+README.md

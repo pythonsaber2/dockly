@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest a focused improvement that preserves Dockly's simplicity
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What operator or developer problem should Dockly solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the smallest useful solution and its workflow.
+    validations:
+      required: true
+  - type: textarea
+    id: footprint
+    attributes:
+      label: Operational footprint
+      description: What dependencies, services, privileges, or migrations would this add?
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues and discussions.
+          required: true
+        - label: I considered whether this belongs in Dockly's single-host scope.
+          required: true

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>Dockly</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <div id="auth" class="auth-shell" hidden>
+    <section class="auth-panel">
+      <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p class="eyebrow">Your server, under control</p>
+      <h1 id="auth-title">Welcome to Dockly</h1>
+      <p id="auth-copy" class="muted">Set one password to secure your deployment console.</p>
+      <form id="auth-form">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" minlength="12" autocomplete="new-password" required placeholder="At least 12 characters">
+        <button class="button primary wide" type="submit"><span id="auth-action">Set up Dockly</span><span aria-hidden="true">→</span></button>
+      </form>
+      <p id="auth-error" class="form-error" role="alert"></p>
+    </section>
+    <aside class="auth-aside" aria-hidden="true">
+      <div class="terminal-card">
+        <div class="terminal-top"><i></i><i></i><i></i><span>deploy.log</span></div>
+        <div class="terminal-body">
+          <p><b>01</b> source fetched <em>main@a81c2f</em></p>
+          <p><b>02</b> image built <em>4.2s</em></p>
+          <p><b>03</b> health check <em>200 OK</em></p>
+          <p class="success"><b>04</b> traffic ready <em>healthy</em></p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div id="dashboard" class="shell" hidden>
+    <aside class="sidebar">
+      <a class="logo" href="/" aria-label="Dockly home"><span class="brand-mark small"><span></span><span></span><span></span></span><strong>dockly</strong></a>
+      <nav aria-label="Main navigation">
+        <button class="nav-item active" data-view="overview"><span>⌂</span>Overview</button>
+        <button class="nav-item" data-view="apps"><span>◇</span>Applications</button>
+        <button class="nav-item" data-view="activity"><span>↗</span>Activity</button>
+      </nav>
+      <div id="engine-chip" class="server-chip"><i></i><div><strong>Local engine</strong><small id="engine-status">Checking…</small></div></div>
+      <button id="logout" class="nav-item logout"><span>↪</span>Sign out</button>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div><p class="eyebrow">Deployment console</p><h1 id="page-title">Overview</h1></div>
+        <button id="new-app" class="button primary"><span>＋</span>New application</button>
+      </header>
+
+      <section id="overview-view" class="view">
+        <div class="metrics">
+          <article><span>Applications</span><strong id="metric-apps">0</strong><small>configured services</small></article>
+          <article><span>Healthy</span><strong id="metric-healthy">0</strong><small>running containers</small></article>
+          <article><span>Deployments</span><strong id="metric-deployments">0</strong><small>recorded releases</small></article>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">Runtime</p><h2>Applications</h2></div><button class="text-button" data-jump="apps">View all →</button></div>
+        <div id="overview-apps" class="app-grid"></div>
+        <div class="section-heading activity-heading"><div><p class="eyebrow">Release rail</p><h2>Recent activity</h2></div></div>
+        <div id="overview-activity" class="activity-list"></div>
+      </section>
+
+      <section id="apps-view" class="view" hidden>
+        <div class="toolbar"><p class="muted">Git repositories packaged and run as Docker containers.</p><input id="app-search" type="search" placeholder="Filter applications…" aria-label="Filter applications"></div>
+        <div id="all-apps" class="app-grid"></div>
+      </section>
+
+      <section id="activity-view" class="view" hidden>
+        <p class="muted page-intro">Every build, release, failure, and rollback in one audit trail.</p>
+        <div id="all-activity" class="activity-list full"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="app-dialog">
+    <form id="app-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Git → Docker</p><h2>New application</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div>
+      <div class="field-grid">
+        <label>Name<input name="name" required pattern="[A-Za-z0-9][A-Za-z0-9_-]{0,47}" placeholder="api-production"></label>
+        <label>Git repository<input name="repository" type="url" required placeholder="https://github.com/acme/api.git"></label>
+        <label>Branch<input name="branch" value="main" required></label>
+        <label>Dockerfile<input name="dockerfile" value="Dockerfile" required></label>
+        <label>Container port<input name="port" type="number" min="1" max="65535" value="3000" required></label>
+        <label>Published port<input name="publishPort" type="number" min="1" max="65535" value="3000" required></label>
+        <label class="span-2">Health path<input name="healthPath" value="/" required></label>
+      </div>
+      <p id="app-error" class="form-error" role="alert"></p>
+      <div class="dialog-actions"><button class="button quiet" value="cancel">Cancel</button><button class="button primary" type="submit" value="default">Create application</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="detail-dialog" class="detail-dialog">
+    <div class="detail-wrap">
+      <div class="dialog-head"><div><p id="detail-repo" class="eyebrow"></p><h2 id="detail-name"></h2></div><button id="detail-close" class="icon-button" aria-label="Close">×</button></div>
+      <div class="detail-actions"><button id="detail-deploy" class="button primary">Deploy now</button><button id="detail-refresh" class="button quiet">Refresh</button></div>
+      <div class="detail-tabs"><button class="active" data-detail="deployments">Deployments</button><button data-detail="logs">Logs</button><button data-detail="environment">Environment</button></div>
+      <section id="detail-content"></section>
+    </div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
